@@ -2,6 +2,8 @@
 #include <Eigen/Core>
 #include <unistd.h>
 
+#include <opencv2/highgui/highgui.hpp>
+
 // 本例演示了如何画出一个预先存储的轨迹
 
 using namespace std;
@@ -85,6 +87,6 @@ void DrawTrajectory(vector<Isometry3d, Eigen::aligned_allocator<Isometry3d>> pos
       glEnd();
     }
     pangolin::FinishFrame();
-    usleep(5000);   // sleep 5 ms
+
   }
 }
