@@ -3,6 +3,9 @@
 #include <boost/format.hpp>
 #include <pangolin/pangolin.h>
 
+
+#include "opencv2/imgcodecs/legacy/constants_c.h"
+
 using namespace std;
 
 typedef vector<Eigen::Vector2d, Eigen::aligned_allocator<Eigen::Vector2d>> VecVector2d;
@@ -203,7 +206,7 @@ void DirectPoseEstimationSingleLayer(
 
     // plot the projected pixels here
     cv::Mat img2_show;
-    cv::cvtColor(img2, img2_show, CV_GRAY2BGR);
+    cv::cvtColor(img2, img2_show, cv::COLOR_BGR2GRAY);
     VecVector2d projection = jaco_accu.projected_points();
     for (size_t i = 0; i < px_ref.size(); ++i) {
         auto p_ref = px_ref[i];

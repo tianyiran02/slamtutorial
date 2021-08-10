@@ -4,6 +4,8 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <chrono>
 
+#include "opencv2/imgcodecs/legacy/constants_c.h"
+
 using namespace std;
 using namespace cv;
 

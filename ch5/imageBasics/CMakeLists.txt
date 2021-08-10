@@ -18,6 +18,9 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 link_directories(${OpenCV_LIBRARY_DIRS})
 add_definitions(${OpenCV_DEFINITIONS})
 
+message("OpenCV Include Dir is ${OpenCV_INCLUDE_DIRS}\n")
+message("OpenCV Library Dir is ${OpenCV_LIBRARY_DIRS}\n")
+
 add_executable(imageBasics imageBasics.cpp)
 # 链接OpenCV库
 target_link_libraries(imageBasics ${OpenCV_LIBRARIES})

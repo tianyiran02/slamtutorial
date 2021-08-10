@@ -34,3 +34,10 @@
 *cmake-build-*
 *.idea
 **build**
+
+CMakeCache.txt
+CMakeFiles/
+build/
+*.cmake
+Makefile/
+3rdparty/*

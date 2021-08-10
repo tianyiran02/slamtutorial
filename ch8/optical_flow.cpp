@@ -104,8 +104,8 @@ inline float GetPixelValue(const cv::Mat &img, float x, float y) {
 int main(int argc, char **argv) {
 
     // images, note they are CV_8UC1, not CV_8UC3
-    Mat img1 = imread(file_1, 0);
-    Mat img2 = imread(file_2, 0);
+    Mat img1 = imread(file_1);
+    Mat img2 = imread(file_2);
 
     // key points, using GFTT here.
     vector<KeyPoint> kp1;
@@ -140,7 +140,7 @@ int main(int argc, char **argv) {
 
     // plot the differences of those functions
     Mat img2_single;
-    cv::cvtColor(img2, img2_single, CV_GRAY2BGR);
+    cv::cvtColor(img2, img2_single, cv::COLOR_BGR2GRAY);
     for (int i = 0; i < kp2_single.size(); i++) {
         if (success_single[i]) {
             cv::circle(img2_single, kp2_single[i].pt, 2, cv::Scalar(0, 250, 0), 2);
@@ -149,7 +149,7 @@ int main(int argc, char **argv) {
     }
 
     Mat img2_multi;
-    cv::cvtColor(img2, img2_multi, CV_GRAY2BGR);
+    cv::cvtColor(img2, img2_multi, cv::COLOR_BGR2GRAY);
     for (int i = 0; i < kp2_multi.size(); i++) {
         if (success_multi[i]) {
             cv::circle(img2_multi, kp2_multi[i].pt, 2, cv::Scalar(0, 250, 0), 2);
@@ -158,7 +158,7 @@ int main(int argc, char **argv) {
     }
 
     Mat img2_CV;
-    cv::cvtColor(img2, img2_CV, CV_GRAY2BGR);
+    cv::cvtColor(img2, img2_CV, cv::COLOR_BGR2GRAY);
     for (int i = 0; i < pt2.size(); i++) {
         if (status[i]) {
             cv::circle(img2_CV, pt2[i], 2, cv::Scalar(0, 250, 0), 2);

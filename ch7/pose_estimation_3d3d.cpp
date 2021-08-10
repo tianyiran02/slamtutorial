@@ -16,6 +16,8 @@
 #include <chrono>
 #include <sophus/se3.hpp>
 
+#include "opencv2/imgcodecs/legacy/constants_c.h"
+
 using namespace std;
 using namespace cv;
 
