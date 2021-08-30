@@ -125,8 +125,8 @@ inline float GetPixelValue(const cv::Mat &img, float x, float y) {
 
 int main(int argc, char **argv) {
 
-    cv::Mat left_img = cv::imread(left_file, 0);
-    cv::Mat disparity_img = cv::imread(disparity_file, 0);
+    cv::Mat left_img = cv::imread(left_file);
+    cv::Mat disparity_img = cv::imread(disparity_file);
 
     // let's randomly pick pixels in the first image and generate some 3d points in the first image's frame
     cv::RNG rng;
@@ -149,7 +149,7 @@ int main(int argc, char **argv) {
     Sophus::SE3d T_cur_ref;
 
     for (int i = 1; i < 6; i++) {  // 1~10
-        cv::Mat img = cv::imread((fmt_others % i).str(), 0);
+        cv::Mat img = cv::imread((fmt_others % i).str());
         // try single layer by uncomment this line
         // DirectPoseEstimationSingleLayer(left_img, img, pixels_ref, depth_ref, T_cur_ref);
         DirectPoseEstimationMultiLayer(left_img, img, pixels_ref, depth_ref, T_cur_ref);

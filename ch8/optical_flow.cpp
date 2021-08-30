@@ -180,7 +180,8 @@ void OpticalFlowSingleLevel(
     const vector<KeyPoint> &kp1,
     vector<KeyPoint> &kp2,
     vector<bool> &success,
-    bool inverse, bool has_initial) {
+    bool inverse, bool has_initial)
+{
     kp2.resize(kp1.size());
     success.resize(kp1.size());
     OpticalFlowTracker tracker(img1, img2, kp1, kp2, success, inverse, has_initial);
