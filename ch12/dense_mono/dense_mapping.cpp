@@ -9,6 +9,8 @@ using namespace std;
 // for sophus
 #include <sophus/se3.hpp>
 
+#include <opencv2/imgproc/types_c.h>
+
 using Sophus::SE3d;
 
 // for eigen
