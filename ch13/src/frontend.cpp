@@ -13,6 +13,8 @@
 #include "myslam/map.h"
 #include "myslam/viewer.h"
 
+#include <opencv2/imgproc/types_c.h>
+
 namespace myslam {
 
 Frontend::Frontend() {
@@ -292,7 +294,7 @@ int Frontend::DetectFeatures() {
     cv::Mat mask(current_frame_->left_img_.size(), CV_8UC1, 255);
     for (auto &feat : current_frame_->features_left_) {
         cv::rectangle(mask, feat->position_.pt - cv::Point2f(10, 10),
-                      feat->position_.pt + cv::Point2f(10, 10), 0, CV_FILLED);
+                      feat->position_.pt + cv::Point2f(10, 10), 0, cv::FILLED);
     }
 
     std::vector<cv::KeyPoint> keypoints;
