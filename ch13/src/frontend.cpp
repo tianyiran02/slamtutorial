@@ -354,6 +354,10 @@ int Frontend::FindFeaturesInRight() {
 
 bool Frontend::BuildInitMap() {
     std::vector<SE3> poses{camera_left_->pose(), camera_right_->pose()};
+    // Check for camera pose initialize
+    // std::cout << "poses left: " << camera_left_->pose().matrix() << std::endl;
+    // std::cout << "poses right: " << camera_right_->pose().matrix() << std::endl;
+    // return false;
     size_t cnt_init_landmarks = 0;
     for (size_t i = 0; i < current_frame_->features_left_.size(); ++i) {
         if (current_frame_->features_right_[i] == nullptr) continue;
