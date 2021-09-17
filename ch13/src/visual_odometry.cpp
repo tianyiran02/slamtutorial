@@ -16,6 +16,8 @@ bool VisualOdometry::Init() {
         return false;
     }
 
+    std::cout << "CP1: dataset_dir == " << Config::Get<std::string>("dataset_dir") << std::endl;
+
     dataset_ =
         Dataset::Ptr(new Dataset(Config::Get<std::string>("dataset_dir")));
     CHECK_EQ(dataset_->Init(), true);
