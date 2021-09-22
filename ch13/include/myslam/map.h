@@ -23,6 +23,8 @@ class Map {
 
     /// 增加一个关键帧
     void InsertKeyFrame(Frame::Ptr frame);
+    /// Insert a trace point
+    void InsertTracePoint(MapPoint::Ptr map_point);
     /// 增加一个地图顶点
     void InsertMapPoint(MapPoint::Ptr map_point);
 
@@ -43,6 +45,12 @@ class Map {
         return active_landmarks_;
     }
 
+    /// 获取激活地图点
+    LandmarksType GetActiveTracePoints() {
+        std::unique_lock<std::mutex> lck(data_mutex_);
+        return active_tracepoints_;
+    }
+
     /// 获取激活关键帧
     KeyframesType GetActiveKeyFrames() {
         std::unique_lock<std::mutex> lck(data_mutex_);
@@ -59,6 +67,7 @@ class Map {
     std::mutex data_mutex_;
     LandmarksType landmarks_;         // all landmarks
     LandmarksType active_landmarks_;  // active landmarks
+    LandmarksType active_tracepoints_;  // active landmarks
     KeyframesType keyframes_;         // all key-frames
     KeyframesType active_keyframes_;  // all key-frames
 
@@ -66,6 +75,7 @@ class Map {
 
     // settings
     int num_active_keyframes_ = 7;  // 激活的关键帧数量
+    int num_active_tracepoints_ = 2000; // 最大路径长度
 };
 }  // namespace myslam
 

@@ -37,6 +37,15 @@ void Map::InsertKeyFrame(Frame::Ptr frame) {
     }
 }
 
+void Map::InsertTracePoint(MapPoint::Ptr map_point) {
+    // TODO: limit maximum size
+    // if (active_tracepoints_.size() > num_active_tracepoints_)
+    //     active_tracepoints_.erase(active_tracepoints_.front());
+
+    active_tracepoints_.insert(make_pair(map_point->id_, map_point));
+}
+
+
 void Map::InsertMapPoint(MapPoint::Ptr map_point) {
     if (landmarks_.find(map_point->id_) == landmarks_.end()) {
         landmarks_.insert(make_pair(map_point->id_, map_point));
@@ -107,6 +116,7 @@ void Map::CleanMap() {
             ++iter;
         }
     }
+    // TODO: active_tracepoints_ not removed
     LOG(INFO) << "Removed " << cnt_landmark_removed << " active landmarks";
 }
 

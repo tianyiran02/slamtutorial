@@ -31,6 +31,7 @@ void Viewer::UpdateMap() {
     assert(map_ != nullptr);
     active_keyframes_ = map_->GetActiveKeyFrames();
     active_landmarks_ = map_->GetActiveMapPoints();
+    active_tracepoints_ = map_->GetActiveTracePoints();
     map_updated_ = true;
 }
 
@@ -148,6 +149,7 @@ void Viewer::DrawFrame(Frame::Ptr frame, const float* color) {
 
 void Viewer::DrawMapPoints() {
     const float red[3] = {1.0, 0, 0};
+    const float green[3] = {0, 1.0, 0};
     for (auto& kf : active_keyframes_) {
         DrawFrame(kf.second, red);
     }
@@ -157,6 +159,11 @@ void Viewer::DrawMapPoints() {
     for (auto& landmark : active_landmarks_) {
         auto pos = landmark.second->Pos();
         glColor3f(red[0], red[1], red[2]);
+        glVertex3d(pos[0], pos[1], pos[2]);
+    }
+    for (auto& trace : active_tracepoints_) {
+        auto pos = trace.second->Pos();
+        glColor3f(green[0], green[1], green[2]);
         glVertex3d(pos[0], pos[1], pos[2]);
     }
     glEnd();

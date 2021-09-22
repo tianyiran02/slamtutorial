@@ -54,6 +54,7 @@ class Viewer {
 
     std::unordered_map<unsigned long, Frame::Ptr> active_keyframes_;
     std::unordered_map<unsigned long, MapPoint::Ptr> active_landmarks_;
+    std::unordered_map<unsigned long, MapPoint::Ptr> active_tracepoints_;
     bool map_updated_ = false;
 
     std::mutex viewer_data_mutex_;

@@ -73,6 +73,13 @@ bool Frontend::Track() {
 bool Frontend::InsertKeyframe() {
     if (tracking_inliers_ >= num_features_needed_for_keyframe_) {
         // still have enough features, don't insert keyframe
+        // however, draw the frame position in map
+        auto new_map_point = MapPoint::CreateNewMappoint();
+        // frame pose is already update. So use directly.
+        SE3 current_pose_Twc = current_frame_->Pose().inverse();
+        Vec3 pc = {current_pose_Twc.data()[4], current_pose_Twc.data()[5], current_pose_Twc.data()[6]};
+        new_map_point->SetPos(pc);
+        map_->InsertTracePoint(new_map_point);
         return false;
     }
     // current frame is a new keyframe
