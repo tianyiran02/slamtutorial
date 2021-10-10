@@ -1,7 +1,18 @@
 cmake_minimum_required(VERSION 2.8)
 project(myslam)
 
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Debug)
+
+option(LINK_SHARED_ZED "Link with the ZED SDK shared executable" ON)
+
+### ZED related
+if (NOT LINK_SHARED_ZED AND MSVC)
+    message(FATAL_ERROR "LINK_SHARED_ZED OFF : ZED SDK static libraries not available on Windows")
+endif()
+if(COMMAND cmake_policy)
+        cmake_policy(SET CMP0003 OLD)
+        cmake_policy(SET CMP0015 OLD)
+endif(COMMAND cmake_policy)
 
 set(CMAKE_CXX_FLAGS "-std=c++11 -std=c++14 -Wall")
 set(CMAKE_CXX_FLAGS_RELEASE  "-std=c++11 -std=c++14 -O3 -fopenmp -pthread")
@@ -16,6 +27,16 @@ include_directories("/usr/local/boost_1_77_0")
 
 # Eigen
 include_directories("/usr/include/eigen3")
+
+# ZED
+find_package(ZED 3 REQUIRED)
+include_directories(${ZED_INCLUDE_DIRS})
+link_directories(${ZED_LIBRARY_DIR})
+
+# Cuda
+find_package(CUDA ${ZED_CUDA_VERSION} EXACT REQUIRED)
+include_directories(${CUDA_INCLUDE_DIRS})
+link_directories(${CUDA_LIBRARY_DIRS})
 
 # OpenCV
 find_package(OpenCV REQUIRED)
@@ -49,6 +70,13 @@ include_directories(${GFLAGS_INCLUDE_DIRS})
 find_package(CSparse REQUIRED)
 include_directories(${CSPARSE_INCLUDE_DIR})
 
+## Link libs
+if (LINK_SHARED_ZED)
+    SET(ZED_LIBS ${ZED_LIBRARIES} ${CUDA_CUDA_LIBRARY} ${CUDA_CUDART_LIBRARY})
+else()
+    SET(ZED_LIBS ${ZED_STATIC_LIBRARIES} ${CUDA_CUDA_LIBRARY} ${CUDA_LIBRARY})
+endif()
+
 set(THIRD_PARTY_LIBS
         ${OpenCV_LIBS}
         ${Sophus_LIBRARIES}
@@ -59,6 +87,7 @@ set(THIRD_PARTY_LIBS
         ${GFLAGS_LIBRARIES}
         pthread
         ${CSPARSE_LIBRARY}
+        ${ZED_LIBS}
         )
 
 enable_testing()
